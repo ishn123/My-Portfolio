@@ -8,47 +8,32 @@ function Connect() {
   const [email, setemail] = useState("");
   const [message, setmessage] = useState("");
   const emailBtn = useRef();
-  const [onSuccess,setOnSuccess] = useState("");
-  const getMailId = async()=>{
+  const [onSuccess, setOnSuccess] = useState("");
+  const getMailId = async () => {
 
-    await fetch("http://localhost:8000/sendemail",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
+    await fetch("http://localhost:8000/sendemail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
       },
-      body:JSON.stringify({email,message})
-    }).then(res=>{
-      if(res.status === 201){
+      body: JSON.stringify({ email, message })
+    }).then(res => {
+      if (res.status === 201) {
         setOnSuccess("Sent");
         setemail("");
         setmessage("");
-      }else{
+      } else {
         setOnSuccess("Failed!")
       }
     })
-    .catch(err=>{
-      setOnSuccess("Failed!")
-    });
-
-    
-  }
-
-  const sendEmail = (event) => {
-
-    event.preventDefault();
-
-
-
-    const serviceID = 'default_service';
-    const templateID = 'template_ltl49k5';
-
-    emailjs.sendForm(serviceID, templateID, emailBtn.current, "R8ExsPy3gbCdxglF4")
-      .then(() => {
-        alert('Sent!');
-      }, (err) => {
-        alert(JSON.stringify(err));
+      .catch(err => {
+        setOnSuccess("Failed!")
       });
+
+
   }
+
+  
   const turnOffConnect = () => {
     const connectBoxClose = document.getElementsByClassName("connect-card")[0];
     connectBoxClose.classList.add("connect-box-pop-up-skill");
@@ -209,7 +194,7 @@ function Connect() {
         </div>
 
         <div className="send-message-button-wrapper">
-          <button class="button" onClick={()=>getMailId()}>
+          <button class="button" onClick={() => getMailId()}>
             <span class="default">Send</span>
             <span class="success">{onSuccess}</span>
             <div class="left"></div>
@@ -222,10 +207,10 @@ function Connect() {
       <div className="separation-line"></div>
       <div className="subscribe-content">
         <div className="button-subscribe-connect">
-          <form ref={emailBtn} onSubmit={(event) => sendEmail(event)}>
-            <input className="subscribe-input-email" type="email" placeholder="subscribe@here.com" required />
-            <button className="subscribe-button-kafka subscribe-content-text" type="submit">Subscribe</button>
-          </form>
+          <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/aroraishan">
+            <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" />
+            <span style={{ marginLeft: 5 }}>Buy me a coffee</span>
+          </a>
         </div>
       </div>
     </div>

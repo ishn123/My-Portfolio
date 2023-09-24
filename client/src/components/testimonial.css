@@ -64,6 +64,7 @@
   }
 }
 
+
 .container-testi{
   margin-top: inherit;
   margin-bottom: 50px;
@@ -84,4 +85,9 @@
 
 #testimonials{
   height: 90vh;
+}
+@media screen and (max-width:400px){
+  .container-testi{
+    margin-top: 25vh;
+  }
 }

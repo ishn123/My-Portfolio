@@ -1,3 +1,43 @@
+.pagination-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+.pagination-ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    width: calc(7 * 20px + 38px);
+}
+.pagination-ul li{
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background: grey;
+    transition: width .3s ease-in-out;
+    cursor: pointer;
+}
+
+.pagination-ul button{
+    display: inline-block;
+    visibility: hidden;
+}
+
+.pagination-ul .active{
+  background: red;
+  width: 38px;
+}
+.pagination-ul button:hover{
+    background: orange;
+    width: 15px;
+}
+
+
+
 i {
     opacity: 0;
     font-size: 18px;

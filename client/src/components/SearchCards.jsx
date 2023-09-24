@@ -1,61 +1,68 @@
 import Searchcontainer from "./Searchcontainer";
-import {useState } from "react";
-import ohio from '../ohio.gif';
-import jio from '../jio.gif'
-import odisej from "../odisej.gif"
+import { Suspense, useEffect, useState } from "react";
 import WorkCards from "./WorkCards";
-import firstgif from '../firstgif.gif';
-import rocket from "../rocket.gif";
+import data from "../data/cards_data.json";
 import "./Cards.css"
+import InfiniteScroll from "react-infinite-scroller";
+import LazySpinnerLoader from "../LazyComponents/LazySpinnerLoader";
+import { lazy } from "react";
 function SearchCards() {
 
-  const chunckSize = 2;
-  const items = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const [cards,setCards] = useState(items.slice(0,chunckSize));
-  const navigateNext = (idx) => {
-    
-    console.log(idx);
-    let sidx = ((chunckSize*(idx-1)))%items.length;
-    let eidx = Math.min(items.length-1,sidx + chunckSize-1);
+  const chunckSize = 4;
 
-    const splicedArray = items.slice(sidx,eidx+1);
-    console.log(splicedArray);
+  const [cards, setCards] = useState(data.slice(0, chunckSize));
+  const navigateNext = (idx) => {
+
+
+    let sidx = ((chunckSize * (idx))) % data.length;
+    let eidx = Math.min(data.length - 1, sidx + chunckSize - 1);
+
+    const splicedArray = data.slice(sidx, eidx + 1);
     setCards(splicedArray);
+
+
   }
-  const styles = { width: 300, display: 'block', marginBottom: 10, border: "10px solid green" };
+  useEffect(() => {
+    const pagesBtn = document.querySelectorAll(".pagination-ul li");
+    const clearActivePage = () => {
+      pagesBtn.forEach((el) => el.classList.remove("active"));
+    }
+
+    pagesBtn.forEach((el) => {
+      el.addEventListener("click", () => {
+        clearActivePage();
+        el.classList.add("active");
+      })
+    })
+    pagesBtn[0].classList.add("active");
+  }, [])
   return (
     <div className="App-header">
-   <Searchcontainer></Searchcontainer>
+      <Searchcontainer></Searchcontainer>
       <div className="projects-card-container">
         <div className="skill-card-show">
-        <div class="container">
-        
-              <WorkCards title="Awwards" para="awwwards clone." imageurl={firstgif} cardText="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus nam alias tempore beatae cum sapiente, facilis illum nobis, nisi doloribus sequi, nostrum saepe fuga ex harum? Porro, quo optio?" backcolor="#f53232"/>
-              <WorkCards title="Veneria" para="Veneria clone." imageurl={ohio} cardText="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus nam alias tempore beatae cum sapiente, facilis illum nobis, nisi doloribus sequi, nostrum saepe fuga ex harum? Porro, quo optio?" backcolor="#ff5e00"/>
-              <WorkCards title="Infos" para="infos clone." imageurl={jio} cardText="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus nam alias tempore beatae cum sapiente, facilis illum nobis, nisi doloribus sequi, nostrum saepe fuga ex harum? Porro, quo optio?" backcolor="#2b26c3"/>
-              <WorkCards title="Rocket" para="RocketAir clone." imageurl={rocket} cardText="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus nam alias tempore beatae cum sapiente, facilis illum nobis, nisi doloribus sequi, nostrum saepe fuga ex harum? Porro, quo optio?" backcolor="#0091ff"/>
-              <WorkCards title="odisej" para="Hotel odisej clone." imageurl={odisej} cardText="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla natus nam alias tempore beatae cum sapiente, facilis illum nobis, nisi doloribus sequi, nostrum saepe fuga ex harum? Porro, quo optio?" backcolor="#366622"/>
-            
-         </div>
+            <div class="container">
+
+              {cards?.map(card => {
+                return (
+                  <WorkCards title={card.title} para={card.para} imageurl={card.image} cardText={card.desc} backcolor={card.bgcolor}></WorkCards>
+                )
+              })}
+            </div>
 
         </div>
 
       </div>
+      <div className="pagination-content">
+        <ul class="pagination-ul">
+          {Array.from({ length: Math.ceil(data.length / chunckSize) }, () => Math.random()).map((ele, idx) => {
 
-      {/* <div className="pages-item-scroll">
-        <div className="pagination">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map(idx => {
             return (
-              <>
-                <input id={`dotted-${idx}`} type="radio" name="dotteds" onClick={()=>navigateNext(idx)}/>
-                <label htmlFor={`dotted-${idx}`} />
-              </>
+              <li role="presentation" onClick={() => navigateNext(idx)}><button></button></li>
             )
           })}
-          <div className="pacman" />
-        </div>
-
-      </div> */}
+        </ul>
+      </div>
     </div>
   );
 }

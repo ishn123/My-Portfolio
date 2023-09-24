@@ -217,7 +217,7 @@ function MobileConnect() {
       });
 
       // Mouseenter
-      
+
       link.addEventListener("mouseenter", (e) => {
         enterAnimation(link, e, index);
       });
@@ -399,7 +399,7 @@ function MobileConnect() {
         </div>
         <div id="minicircle"></div>
         <div id="main" data-scroll-container data-scroll-speed="2" >
-          <Navbar showMenu={showMenu} setShowMenu={setShowMenu} mobile={mobileMenu} toggleMenu={setMobileMenu} id="nav" style={{position:"fixed"}}></Navbar>
+          <Navbar showMenu={showMenu} setShowMenu={setShowMenu} mobile={mobileMenu} toggleMenu={setMobileMenu} id="nav" style={{ position: "fixed" }}></Navbar>
 
 
 
@@ -454,10 +454,10 @@ function MobileConnect() {
             <div className="separation-line"></div>
             <div className="subscribe-content">
               <div className="button-subscribe-connect">
-                <form ref={emailBtn} onSubmit={(event) => sendEmail(event)}>
-                  <input className="subscribe-input-email" type="email" placeholder="subscribe@here.com" required />
-                  <button className="subscribe-button-kafka subscribe-content-text" type="submit">Subscribe</button>
-                </form>
+                <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/aroraishan">
+                  <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" />
+                  <span style={{ marginLeft: 5 }}>Buy me a coffee</span>
+                </a>
               </div>
             </div>
           </div>

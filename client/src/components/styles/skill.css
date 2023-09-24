@@ -221,9 +221,16 @@
     margin-top: 25vh;
     margin-bottom: 25vh;
 }
+@media screen and (min-width:1400px) {
+    .outer-svg-wrapper:nth-child(4){
+        margin-top: 25vh;
+        margin-bottom: 25vh;
+    }
+}
+
 .outer-svg-wrapper:nth-child(4){
-    margin-top: 25vh;
-    margin-bottom: 25vh;
+    margin-top: 7vh;
+    margin-bottom: 11vh;
 }
 .xl-container{
     margin-left: auto;
